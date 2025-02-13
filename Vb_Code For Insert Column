@@ -1,0 +1,20 @@
+NOTE: THIS VB CODE SUCCESSFULLY INSERTS A NEW COLUMN RIGHT AFTER THE SPECIFIED COLUMN NAME.
+if "Col4" exists in the DataTable
+If Not dt_Table.Columns.Contains("Col4") Then
+    Throw New Exception("Column 'Col4' does not exist in the DataTable.")
+End If
+
+' Check if the new column already exists
+Dim newColumnName As String = "NewColumn"  
+If dt_Table.Columns.Contains(newColumnName) Then
+    Throw New Exception("The new column name '" & newColumnName & "' already exists.")
+End If
+
+' Get the index of "Col4"
+Dim columnIndex As Integer = dt_Table.Columns.IndexOf("Col4")
+
+' Add the new column at the end first
+dt_Table.Columns.Add(newColumnName, GetType(String))
+
+' Move the new column next to "Col4"
+dt_Table.Columns(newColumnName).SetOrdinal(columnIndex + 1)
